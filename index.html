@@ -1,1 +1,559 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pustaka Hyrule - Zelda Nusantara</title>
+<meta property="og:title" content="Perpustakaan Zelda Nusantara">
+<meta property="og:description" content="Arsip terjemahan, decomp, dan port game Zelda dalam Bahasa Indonesia.">
+<meta property="og:image" content="https://shioripro.nekoweb.org/img/image.png">
+<meta property="og:url" content="https://shioripro.nekoweb.org/zelda-test">
+<meta property="og:type" content="website">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Perpustakaan Zelda Nusantara">
+<meta name="twitter:description" content="Arsip terjemahan, proyek decomp-recomp, dan port game Zelda dalam Bahasa Indonesia. Digagas oleh Zelda Nusantara.">
+<meta name="twitter:image" content="https://shioripro.nekoweb.org/img/image.png">
+<link rel="icon" type="image/x-icon" href="../img/test/zeldo/favicon.ico">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap');
+
+  :root{
+    --bg:#14161A;
+    --panel:#1B1E24;
+    --line:#2A2E37;
+    --text:#EDEDED;
+    --muted:#8B909C;
+    --ok:#5EEAD4;
+    --warn:#F5B860;
+    --stall:#E8607A;
+  }
+
+  *{box-sizing:border-box;}
+body{
+  margin:0;
+  background-image: url('https://zeldanusantara.carrd.co/assets/images/bg.jpg?v=1d387621');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;   /* ← add this */
+  color:var(--text);
+  font-family:'Inter',sans-serif;
+  padding:64px 24px;
+  display:flex;
+  justify-content:center;
+}
+
+.wrap{
+  width:100%;
+  max-width:720px;
+  background:rgba(27,30,36,0.70);   /* var(--panel) at 75% opacity */
+  border-radius:16px;
+  padding:32px;
+  backdrop-filter:blur(5px);         /* frosted-glass effect, optional */
+}
+
+  header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:32px;
+    border-bottom:1px solid var(--line);
+    padding-bottom:20px;
+  }
+  header h1{
+    font-size:20px;
+    font-weight:700;
+    margin:0;
+    letter-spacing:-0.02em;
+  }
+  header span{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12px;
+    color:var(--muted);
+  }
+.header-left{display:flex;align-items:center;gap:14px;}
+  .row{
+    padding:18px 4px;
+    border-bottom:1px solid var(--line);
+    display:grid;
+    grid-template-columns:56px 1fr auto;
+    gap:0 18px;
+    align-items:center;
+  }
+  
+  .header-logo{
+  height:100px;
+  width:auto;
+  flex-shrink:0;
+}
+  .row:last-child{border-bottom:none;}
+
+  .ring{
+    grid-row:1 / 3;
+    width:56px;
+    height:56px;
+    position:relative;
+  }
+  .ring svg{transform:rotate(-90deg);}
+  .ring circle{
+    fill:none;
+    stroke-width:4;
+  }
+  .ring .track{stroke:var(--line);}
+  .ring .fill{
+    stroke-linecap:round;
+    transition:stroke-dashoffset 0.3s ease;
+  }
+  .ring .pct{
+    position:absolute;
+    inset:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    font-weight:600;
+  }
+
+  .name{
+    font-weight:600;
+    font-size:14.5px;
+    grid-column:2;
+  }
+  .name-link{
+  color:var(--text);
+  text-decoration:none;
+}
+.name-link:hover{
+  color:var(--ok);
+  text-decoration:underline;
+}
+  .path{
+    font-family:'JetBrains Mono',monospace;
+    font-size:11.5px;
+    color:var(--muted);
+    grid-column:2;
+  }
+  .status{
+    font-family:'JetBrains Mono',monospace;
+    font-size:10px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    text-align:right;
+    color:var(--muted);
+    grid-column:3;
+    grid-row:1 / 3;
+    align-self:center;
+  }
+ footer{
+  margin-top:28px;
+  padding-top:20px;
+  border-top:1px solid var(--line);
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;
+  color:var(--muted);
+  text-align:center;
+}
+footer a{
+  color:var(--muted);
+  text-decoration:none;
+}
+footer a:hover{
+  color:var(--ok);
+}
+  .burger{
+  width:36px;height:36px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:5px;
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:8px;
+  cursor:pointer;
+  flex-shrink:0;
+}
+.burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.burger.open span:nth-child(2){opacity:0;}
+.burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+.burger span{
+  width:16px;height:2px;
+  background:var(--text);
+  transition:transform 0.25s ease, opacity 0.2s ease;
+}
+.side-menu{
+  position:fixed; top:0; left:0; bottom:0; width:240px;
+  background:var(--panel);
+  border-right:1px solid var(--line);
+  transform:translateX(-100%);
+  transition:transform 0.3s ease;
+  z-index:21;
+  padding:28px 20px;
+}
+.side-menu.open{transform:translateX(0);}
+.side-menu h2{
+  font-size:13px;
+  text-transform:uppercase;
+  letter-spacing:0.06em;
+  color:var(--muted);
+  margin:0 0 18px;
+}
+.side-menu a{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:10px 8px;
+  border-radius:6px;
+  color:var(--text);
+  text-decoration:none;
+  font-size:14px;
+  font-weight:500;
+  margin-bottom:2px;
+}
+.side-menu a:hover{background:var(--bg);color:var(--ok);}
+.side-menu a .n{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;
+  color:var(--muted);
+}
+  .overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.55);
+  opacity:0;
+  pointer-events:none;
+  transition:opacity 0.25s ease;
+  z-index:20;
+}
+.overlay.open{opacity:1;pointer-events:auto;}
+  footer .stats{display:flex;gap:20px;}
+  footer .stats b{color:var(--text);font-weight:600;}
+
+  .category{margin-bottom:8px;}
+  .cat-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:14px 4px;
+    cursor:pointer;
+    user-select:none;
+  }
+  .cat-header:hover .cat-name{color:var(--ok);}
+  .cat-left{display:flex;align-items:center;gap:10px;}
+  .chevron{
+    width:14px;height:14px;
+    color:var(--muted);
+    transition:transform 0.25s ease;
+    flex-shrink:0;
+  }
+  .category.collapsed .chevron{transform:rotate(-90deg);}
+  .cat-name{
+    font-weight:700;
+    font-size:13px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    transition:color 0.15s ease;
+  }
+  .cat-count{
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    color:var(--muted);
+    background:var(--panel);
+    padding:2px 8px;
+    border-radius:10px;
+  }
+  .cat-avg{
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    color:var(--muted);
+  }
+  .cat-rows{
+    overflow:hidden;
+    max-height:2000px;
+    transition:max-height 0.3s ease, opacity 0.25s ease;
+    opacity:1;
+  }
+  .category.collapsed .cat-rows{
+    max-height:0;
+    opacity:0;
+  }
+  .cat-rows .row:first-child{border-top:1px solid var(--line);}
+  
+  .modal-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.65);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity 0.25s ease;
+  z-index:30;
+  padding:20px;
+}
+.modal-overlay.open{opacity:1;pointer-events:auto;}
+.modal-card{
+  position:relative;
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:16px;
+  max-width:400px;
+  width:100%;
+  max-height:90vh;
+  overflow-y:auto;
+  overflow-x:hidden;
+  transform:scale(0.95);
+  transition:transform 0.25s ease;
+}
+.modal-card img{
+  width:100%;
+  height:auto;
+  max-height:320px;
+  object-fit:cover;   /* only kicks in if height is capped */
+  display:block;
+  border-radius:16px 16px 0 0;
+}
+
+.modal-body{padding:20px;}
+.modal-body h3{margin:0 0 4px;font-size:18px;}
+.modal-meta{
+  font-family:'JetBrains Mono',monospace;
+  font-size:12px;
+  color:var(--muted);
+  margin-bottom:14px;
+}
+.modal-meta span{display:block;margin-bottom:4px;}
+.modal-link{
+  display:inline-block;
+  margin-top:6px;
+  color:var(--ok);
+  text-decoration:none;
+  font-size:13px;
+}
+.modal-close{
+  position:absolute;
+  top:12px;right:12px;
+  width:28px;height:28px;
+  background:rgba(0,0,0,0.5);
+  border-radius:50%;
+  border:none;
+  color:#fff;
+  cursor:pointer;
+  font-size:16px;
+  line-height:1;
+}
+  
+  
+  @media (max-width: 600px){
+  body{
+    padding:32px 16px;
+  }
+
+  .wrap{
+    padding:20px;
+    border-radius:12px;
+  }
+
+  header{
+    flex-wrap:wrap;
+    gap:12px;
+  }
+
+  header h1{
+    font-size:22px;
+  }
+
+  .header-logo{
+    height:32px;
+  }
+
+  .side-menu{
+    width:80%;
+    max-width:280px;
+  }
+
+  .row{
+    grid-template-columns:48px 1fr;
+    row-gap:6px;
+  }
+
+  .ring{
+    width:48px;
+    height:48px;
+  }
+  .ring svg{
+    width:48px;
+    height:48px;
+  }
+
+  .name{
+    font-size:13.5px;
+  }
+
+  .status{
+    grid-column:2;
+    grid-row:auto;
+    text-align:left;
+    align-self:start;
+  }
+
+  .path{
+    grid-column:2;
+  }
+
+  .cat-name{
+    font-size:12px;
+  }
+}
+</style>
+</head>
+<body>
+<div class="overlay" id="overlay"></div>
+<div class="side-menu" id="sideMenu">
+  <h2>Menu</h2>
+  <a href="#">Library <span class="n" id="nav-all"></span></a>
+  <a href="#">Playing <span class="n" id="nav-playing"></span></a>
+  <a href="#">Backlog <span class="n" id="nav-backlog"></span></a>
+  <a href="#">On hold <span class="n" id="nav-hold"></span></a>
+  <a href="#">Completed <span class="n" id="nav-done"></span></a>
+</div>
+<div class="wrap">
+  <header>
+  	<div class="header-left">
+  	<div class="burger" id="burger"><span></span><span></span><span></span></div>
+    <h1>Pustaka Zelda Nusantara</h1> 
+    </div>
+  <img src="https://shioripro.nekoweb.org/img/image.png" alt="Zelda Nusantara" class="header-logo">
+  </header>
+  <div id="list"></div>
+   <footer>
+  <div>© <span id="year"></span> <a href="https://zeldanusantara.carrd.co">Zelda Nusantara</a></div>
+      <div>Updated today</div>
+  </footer>
+</div>
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal-card" id="modalCard"></div>
+</div>
+<script>
+const games = [
+  { name:"The Legend of Zelda",     category:"NES",     type:"Terjemahan",        pct:100, status:"Selesai",   color:"var(--ok)", url:"https://www.romhacking.net/translations/6228/", kontributor:"Hamikon", rilis:2021, gambar:"https://www.romhacking.net/translations/nes/images/titles/6228titlescreen.png"},
+  { name:"The Legend of Zelda",     category:"NES",     type:"Terjemahan",        pct:100, status:"Selesai",   color:"var(--ok)", url:"https://www.romhacking.net/translations/5919/", kontributor:"	C4_KadalMen", rilis:2021, gambar:"https://www.romhacking.net/translations/nes/images/titles/5919titlescreen.png"},
+   { name:"Zelda II - The Adventure of Link",     category:"NES",     type:"Terjemahan",        pct:100, status:"Selesai",   color:"var(--ok)", url:"https://www.romhacking.net/translations/6229/", kontributor:"Hamikon", rilis:2020, gambar:"https://www.romhacking.net/translations/nes/images/titles/6229titlescreen.png"},
+  { name:"Zelda II - The Adventure of Link",     category:"NES",     type:"Terjemahan",        pct:100, status:"Selesai",   color:"var(--ok)", url:"https://www.romhacking.net/translations/5924/", kontributor:"	C4_KadalMen", rilis:2021, gambar:"https://www.romhacking.net/translations/nes/images/titles/6229titlescreen.png"},
+   { name:"The Legend of Zelda - Minish Cap",     category:"GBA",     type:"Terjemahan",        pct:100, status:"Selesai",   color:"var(--ok)", url:"hhttps://www.romhacking.net/translations/5855/", kontributor:"AmriFaesal", rilis:2021, gambar:"https://images.weserv.nl/?url=www.romhacking.net/games/gba/images/titles/1064titlescreen.png"},
+  { name:"Lorem Ipsum",            category:"Switch", type:"Decomp",  pct:34, status:"Playing",   color:"var(--ok)" },
+  { name:"Lorem Ipsum",          category:"PS5",    type:"Recomp", pct:12, status:"Backlog",   color:"var(--stall)" },
+  { name:"Dusklight (Portmaster)",             category:"Linux-Based Handheld",     type:"Ports", pct:100, status:"Selesai", color:"var(--ok)", url:"https://portmaster.games/detail.html?name=dusklight",kontributor:"jckhng, bmdhacks", rilis:2026 },
+  { name:"Lorem Ipsum", category:"PS5", type:"Komik",    pct:55, status:"On hold",   color:"var(--warn)" },
+  { name:"Lorem Ipsum", category:"Switch", type:"Lainnya", pct:20, status:"Backlog",   color:"var(--stall)" },
+];
+
+const SEGMENTS = 20;
+const list = document.getElementById('list');
+document.getElementById('year').textContent = new Date().getFullYear();
+const chevronSVG = `<svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>`;
+
+function makeRow(p){
+  const r = 24;
+  const c = 2 * Math.PI * r;
+  const offset = c - (p.pct / 100) * c;
+
+  const row = document.createElement('div');
+  row.className = 'row';
+  row.innerHTML = `
+    <div class="ring">
+      <svg width="56" height="56" viewBox="0 0 56 56">
+        <circle class="track" cx="28" cy="28" r="${r}"></circle>
+        <circle class="fill" cx="28" cy="28" r="${r}" stroke="${p.color}"
+          stroke-dasharray="${c}" stroke-dashoffset="${offset}"></circle>
+      </svg>
+      <div class="pct">${p.pct}%</div>
+    </div>
+ <div class="name"><span class="name-link">${p.name}</span></div>
+    <div class="status">${p.status}</div>
+  <div class="path">${p.category} · ${p.kontributor} · ${p.rilis}</div>
+  `;
+  row.querySelector('.name-link').addEventListener('click', () => openModal(p));
+  return row;
+}
+
+const categories = [...new Set(games.map(g => g.type))];
+
+categories.forEach(cat => {
+  const items = games.filter(g => g.type === cat);
+  const avg = Math.round(items.reduce((s, p) => s + p.pct, 0) / items.length);
+
+  const section = document.createElement('div');
+  section.className = 'category collapsed';
+
+  const header = document.createElement('div');
+  header.className = 'cat-header';
+  header.innerHTML = `
+    <div class="cat-left">
+      ${chevronSVG}
+      <span class="cat-name">${cat}</span>
+      <span class="cat-count">${items.length}</span>
+    </div>
+
+  `;
+  header.addEventListener('click', () => section.classList.toggle('collapsed'));
+
+  const rows = document.createElement('div');
+  rows.className = 'cat-rows';
+  items.forEach(p => rows.appendChild(makeRow(p)));
+
+  section.appendChild(header);
+  section.appendChild(rows);
+  list.appendChild(section);
+});
+
+const modalOverlay = document.getElementById('modalOverlay');
+const modalCard = document.getElementById('modalCard');
+
+function openModal(p){
+  modalCard.innerHTML = `
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    ${p.gambar ? `<img src="${p.gambar}" alt="${p.name}">` : ''}
+    <div class="modal-body">
+      <h3>${p.name}</h3>
+      <div class="modal-meta">
+        <span>Kategori: ${p.category}</span>
+        <span>Tipe: ${p.type}</span>
+        <span>Kontributor: ${p.kontributor}</span>
+        <span>Rilis: ${p.rilis}</span>
+        <span>Status: ${p.status} (${p.pct}%)</span>
+      </div>
+      <a href="${p.url}" target="_blank" class="modal-link">Lihat detail →</a>
+    </div>
+  `;
+  modalOverlay.classList.add('open');
+}
+function closeModal(){
+  modalOverlay.classList.remove('open');
+}
+modalOverlay.addEventListener('click', (e) => {
+  if(e.target === modalOverlay) closeModal();
+});
+const burger = document.getElementById('burger');
+const sideMenu = document.getElementById('sideMenu');
+const overlay = document.getElementById('overlay');
+
+burger.addEventListener('click', () => {
+  burger.classList.toggle('open');
+  sideMenu.classList.toggle('open');
+  overlay.classList.toggle('open');
+});
+function closeMenu(){
+  burger.classList.remove('open');
+  sideMenu.classList.remove('open');
+  overlay.classList.remove('open');
+}
+overlay.addEventListener('click', closeMenu);
+
+</script>
+</body>
+</html>
