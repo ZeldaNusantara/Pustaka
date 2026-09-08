@@ -28,6 +28,7 @@
     --ok:#5EEAD4;
     --warn:#F5B860;
     --stall:#E8607A;
+    --ai:#B792F5;
   }
 
   *{box-sizing:border-box;}
@@ -117,11 +118,15 @@ body{
     font-weight:600;
   }
 
-  .name{
-    font-weight:600;
-    font-size:14.5px;
-    grid-column:2;
-  }
+.name{
+  font-weight:600;
+  font-size:14.5px;
+  grid-column:2;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  flex-wrap:wrap;
+}
   .name-link{
   color:var(--text);
   text-decoration:none;
@@ -129,6 +134,22 @@ body{
 .name-link:hover{
   color:var(--ok);
   text-decoration:underline;
+}
+  .badge{
+  font-family:'JetBrains Mono',monospace;
+  font-size:9.5px;
+  font-weight:600;
+  text-transform:uppercase;
+  letter-spacing:0.04em;
+  padding:2px 7px;
+  border-radius:999px;
+  line-height:1.5;
+  white-space:nowrap;
+}
+.badge-ai{
+  color:var(--ai);
+  background:rgba(183,146,245,0.14);
+  border:1px solid rgba(183,146,245,0.4);
 }
   .path{
     font-family:'JetBrains Mono',monospace;
@@ -319,7 +340,7 @@ footer a:hover{
 }
 
 .modal-body{padding:20px;}
-.modal-body h3{margin:0 0 4px;font-size:18px;}
+.modal-body h3{margin:0 0 4px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
 .modal-meta{
   font-family:'JetBrains Mono',monospace;
   font-size:12px;
@@ -432,7 +453,7 @@ footer a:hover{
   <div id="list"></div>
    <footer>
   <div>© <span id="year"></span> <a href="https://zeldanusantara.carrd.co">Zelda Nusantara</a></div>
-   <div>Background by <a href="https://x.com/Ayangku_2D">Ale</a> & <a href="https://x.com/Ayangku_2D">Lantern Elf</a></div>
+   <div>Background by <a href="https://x.com/Ayangku_2D">Ale</a> & <a href="https://x.com/Lantern_elf">Lantern Elf</a></div>
       <div>Updated today</div>
   </footer>
 </div>
@@ -446,6 +467,7 @@ const games = [
    { name:"Zelda II - The Adventure of Link",     category:"NES",     type:"Terjemahan",        pct:100, status:"Selesai",   color:"var(--ok)", url:"https://www.romhacking.net/translations/6229/", kontributor:"Hamikon", rilis:2020, gambar:"https://www.romhacking.net/translations/nes/images/titles/6229titlescreen.png"},
   { name:"Zelda II - The Adventure of Link",     category:"NES",     type:"Terjemahan",        pct:100, status:"Selesai",   color:"var(--ok)", url:"https://www.romhacking.net/translations/5924/", kontributor:"	C4_KadalMen", rilis:2021, gambar:"https://www.romhacking.net/translations/nes/images/titles/6229titlescreen.png"},
    { name:"The Legend of Zelda - Minish Cap",     category:"GBA",     type:"Terjemahan",        pct:100, status:"Selesai",   color:"var(--ok)", url:"hhttps://www.romhacking.net/translations/5855/", kontributor:"AmriFaesal", rilis:2021, gambar:"https://images.weserv.nl/?url=www.romhacking.net/games/gba/images/titles/1064titlescreen.png"},
+    { name:"The Legend of Zelda - Twilight Princess",     category:"GameCube",     type:"Terjemahan",        pct:100, status:"Selesai",   color:"var(--ok)", url:"https://gamebanana.com/mods/683963", kontributor:"Sukalibur", rilis:2026, gambar:"https://images.gamebanana.com/img/ss/mods/6a2529e2282dc.jpg"},
   { name:"Lorem Ipsum",            category:"Switch", type:"Decomp",  pct:34, status:"Playing",   color:"var(--ok)" },
   { name:"Lorem Ipsum",          category:"PS5",    type:"Recomp", pct:12, status:"Backlog",   color:"var(--stall)" },
   { name:"Dusklight (Portmaster)",             category:"Linux-Based Handheld",     type:"Ports", pct:100, status:"Selesai", color:"var(--ok)", url:"https://portmaster.games/detail.html?name=dusklight",kontributor:"jckhng, bmdhacks", rilis:2026 },
@@ -457,7 +479,7 @@ const SEGMENTS = 20;
 const list = document.getElementById('list');
 document.getElementById('year').textContent = new Date().getFullYear();
 const chevronSVG = `<svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>`;
-
+const aiBadgeHTML = `<span class="badge badge-ai">AI-Assisted</span>`;
 function makeRow(p){
   const r = 24;
   const c = 2 * Math.PI * r;
@@ -474,7 +496,7 @@ function makeRow(p){
       </svg>
       <div class="pct">${p.pct}%</div>
     </div>
- <div class="name"><span class="name-link">${p.name}</span></div>
+<div class="name"><span class="name-link">${p.name}</span>${p.aiAssisted ? aiBadgeHTML : ''}</div>
     <div class="status">${p.status}</div>
   <div class="path">${p.category} · ${p.kontributor} · ${p.rilis}</div>
   `;
@@ -520,7 +542,7 @@ function openModal(p){
     <button class="modal-close" onclick="closeModal()">✕</button>
     ${p.gambar ? `<img src="${p.gambar}" alt="${p.name}">` : ''}
     <div class="modal-body">
-      <h3>${p.name}</h3>
+      <h3>${p.name}${p.aiAssisted ? aiBadgeHTML : ''}</h3>
       <div class="modal-meta">
         <span>Kategori: ${p.category}</span>
         <span>Tipe: ${p.type}</span>
