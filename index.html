@@ -360,6 +360,8 @@ footer a:hover{
   font-size:12px;
   color:var(--muted);
   margin-bottom:14px;
+
+  
 }
 .modal-meta span{display:block;margin-bottom:4px;}
 .modal-links{
@@ -367,6 +369,15 @@ footer a:hover{
   flex-direction:column;
   gap:6px;
   margin-top:4px;
+}
+  .modal-link{
+  display:inline-block;
+  margin-top:6px;
+  color:var(--ok);
+  text-decoration:none;
+}
+.modal-link:hover{
+  text-decoration:underline;
 }
 .modal-close{
   position:absolute;
@@ -581,6 +592,22 @@ const games = [
     { platform:"PSP",                  kontributor:"rspyke",  rilis:2011, url:"https://sourceforge.net/projects/zeldaolb/" },
     { platform:"3DS",                   kontributor:"nop90",       rilis:2016, url:"https://github.com/nop90/ZeldaOLB" },
     { platform:"Portmaster",            kontributor:"Tekkenfede",  rilis:2024, url:"https://portmaster.games/detail.html?name=zeldaolb&devices=" }
+  ],
+  aiAssisted:false 
+},
+
+  {
+  name:"The Legend of Zelda - Time to Triumph",
+  category:"Multi-platform",
+  type:"Fanmade",
+  pct:100, status:"Selesai", color:"var(--ok)",
+  gambar:"https://www.zeldaroth.fr/images/3t/s1.png,
+  variants:[
+    { platform:"PC (Original)",        kontributor:"Vincent Jouillat", rilis:2009, url:"https://www.zeldaroth.fr/us/z3t.php },
+    { platform:"Dingux",                kontributor:"Shin-NiL",    rilis:2010, url:"https://pyra-handheld.com/boards/resources/zelda-time-to-triumph-3t-v1-1.4073/" },
+    { platform:"PSP",                  kontributor:"rspyke",  rilis:2011, url:"https://sourceforge.net/projects/zeldat3/" },
+    { platform:"3DS",                   kontributor:"nop90",       rilis:2017, url:"https://github.com/nop90/Zelda3T" },
+    { platform:"Portmaster",            kontributor:"Tekkenfede",  rilis:2024, url:"https://portmaster.games/detail.html?name=zelda3t" }
   ],
   aiAssisted:false 
 },
