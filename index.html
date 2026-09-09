@@ -347,6 +347,11 @@ footer a:hover{
 }
 .modal-card.wide{
   max-width:560px;
+  scrollbar-width:none;       /* Firefox */
+  -ms-overflow-style:none;    /* old Edge/IE */
+}
+.modal-card.wide::-webkit-scrollbar{
+  display:none;               /* Chrome, Safari, new Edge */
 }
 .modal-body{padding:20px;}
 .modal-body h3{margin:0 0 4px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
@@ -558,22 +563,24 @@ const games = [
   variants:[
     { platform:"PC (Original)",        kontributor:"Vincent Jouillat", rilis:2006, url:"https://www.zeldaroth.fr/us/zroth.php" },
     { platform:"Dingux",                kontributor:"Shin-NiL",    rilis:2010, url:"https://dl.openhandhelds.org/cgi-bin/dingoo.cgi?0,0,0,0,26,389" },
+    { platform:"PSP",                   kontributor:"rspyke",  rilis:2011, url:"https://sourceforge.net/projects/zelda-roth-psp/" },
     { platform:"3DS",                   kontributor:"nop90",       rilis:2016, url:"https://github.com/nop90/ZeldaROTH" },
     { platform:"Portmaster",            kontributor:"Tekkenfede",  rilis:2024, url:"https://portmaster.games/detail.html?name=zelda_roth" }
   ],
   aiAssisted:false 
 },
   {
-  name:"The Legend of Zelda - Return of The Hylian",
+  name:"The Legend of Zelda - Oni Link Begins",
   category:"Multi-platform",
   type:"Fanmade",
   pct:100, status:"Selesai", color:"var(--ok)",
-  gambar:"https://www.zeldaroth.fr/images/roth/s14.png",
+  gambar:"https://www.zeldaroth.fr/images/olb/s1.JPG",
   variants:[
-    { platform:"PC (Original)",        kontributor:"Vincent Jouillat", rilis:2006, url:"https://www.zeldaroth.fr/us/zroth.php" },
-    { platform:"Dingux",                kontributor:"Shin-NiL",    rilis:2010, url:"https://dl.openhandhelds.org/cgi-bin/dingoo.cgi?0,0,0,0,26,389" },
-    { platform:"3DS",                   kontributor:"nop90",       rilis:2016, url:"https://github.com/nop90/ZeldaROTH" },
-    { platform:"Portmaster",            kontributor:"Tekkenfede",  rilis:2024, url:"https://portmaster.games/detail.html?name=zelda_roth" }
+    { platform:"PC (Original)",        kontributor:"Vincent Jouillat", rilis:2007, url:"https://www.zeldaroth.fr/us/zolb.php" },
+    { platform:"Dingux",                kontributor:"Shin-NiL",    rilis:2010, url:"https://pyra-handheld.com/boards/resources/the-legend-of-zelda-oni-link-begins-dingux.4066/" },
+    { platform:"PSP",                  kontributor:"rspyke",  rilis:2011, url:"https://sourceforge.net/projects/zeldaolb/" },
+    { platform:"3DS",                   kontributor:"nop90",       rilis:2016, url:"https://github.com/nop90/ZeldaOLB" },
+    { platform:"Portmaster",            kontributor:"Tekkenfede",  rilis:2024, url:"https://portmaster.games/detail.html?name=zeldaolb&devices=" }
   ],
   aiAssisted:false 
 },
