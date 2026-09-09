@@ -643,9 +643,6 @@ const modalOverlay = document.getElementById('modalOverlay');
 const modalCard = document.getElementById('modalCard');
 
 function openModal(p){
-  let bodyExtra;
-
-  // wide modal for variants/links, narrow (original) for single link
   if (p.variants && p.variants.length){
     modalCard.classList.add('wide');
   } else if (p.links && p.links.length){
@@ -654,8 +651,15 @@ function openModal(p){
     modalCard.classList.remove('wide');
   }
 
-  // ...rest of the function stays the same
-}
+  let bodyExtra;
+
+  if (p.variants && p.variants.length){
+    bodyExtra = `
+      <div class="modal-meta">
+        <span>Kategori: ${p.category}</span>
+        <span>Tipe: ${p.type}</span>
+        <span>Status: ${p.status} (${p.pct}%)</span>
+      </div>
       <div class="variant-list">
         ${p.variants.map(v => `
           <div class="variant-row">
@@ -670,7 +674,6 @@ function openModal(p){
       </div>
     `;
   } else if (p.links && p.links.length){
-    // multi-link type (from before)
     bodyExtra = `
       <div class="modal-meta">
         <span>Kategori: ${p.category}</span>
@@ -682,7 +685,6 @@ function openModal(p){
       <div class="modal-links">${p.links.map(l => `<a href="${l.url}" target="_blank" class="modal-link">${l.label} →</a>`).join('')}</div>
     `;
   } else {
-    // single-link type (original)
     bodyExtra = `
       <div class="modal-meta">
         <span>Kategori: ${p.category}</span>
