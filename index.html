@@ -348,12 +348,11 @@ footer a:hover{
   margin-bottom:14px;
 }
 .modal-meta span{display:block;margin-bottom:4px;}
-.modal-link{
-  display:inline-block;
-  margin-top:6px;
-  color:var(--ok);
-  text-decoration:none;
-  font-size:13px;
+.modal-links{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  margin-top:4px;
 }
 .modal-close{
   position:absolute;
@@ -469,6 +468,24 @@ const games = [
    { name:"The Legend of Zelda - Minish Cap",     category:"GBA",     type:"Terjemahan",        pct:100, status:"Selesai",   color:"var(--ok)", url:"hhttps://www.romhacking.net/translations/5855/", kontributor:"AmriFaesal", rilis:2021, gambar:"https://images.weserv.nl/?url=www.romhacking.net/games/gba/images/titles/1064titlescreen.png"},
     { name:"The Legend of Zelda - Twilight Princess",     category:"GameCube",     type:"Terjemahan",        pct:100, status:"Selesai",   color:"var(--ok)", url:"https://gamebanana.com/mods/683963", kontributor:"Sukalibur", rilis:2026, gambar:"https://images.gamebanana.com/img/ss/mods/6a2529e2282dc.jpg", aiAssisted:true },
    { name:"The Legend of Zelda - Phantom Hourglass",     category:"NDS",     type:"Terjemahan",        pct:90, status:"WIP",   color:"var(--ok)", url:"https://pixeldrain.com/u/7pZSutts", kontributor:"SuchMioko", rilis:2026, gambar:"https://zeldanusantara.github.io/Pustaka/source/zel1.jpg", aiAssisted:true },
+  {
+  name:"The Legend of Zelda - Twilight Princess",
+  category:"GameCube",
+  type:"Terjemahan",
+  pct:100,
+  status:"Selesai",
+  color:"var(--ok)",
+  kontributor:"Sukalibur",
+  rilis:2026,
+  gambar:"https://images.gamebanana.com/img/ss/mods/6a2529e2282dc.jpg",
+  aiAssisted:true,
+  links:[
+    { label:"Unduh mod", url:"https://gamebanana.com/mods/683963" },
+    { label:"Video demo", url:"https://youtube.com/watch?v=xxxx" },
+    { label:"Diskusi/Discord", url:"https://discord.gg/xxxx" }
+  ]
+},
+  
   { name:"Lorem Ipsum",            category:"Switch", type:"Decomp",  pct:34, status:"Playing",   color:"var(--ok)" },
   { name:"Lorem Ipsum",          category:"PS5",    type:"Recomp", pct:12, status:"Backlog",   color:"var(--stall)" },
   { name:"Dusklight (Portmaster)",             category:"Linux-Based Handheld",     type:"Ports", pct:100, status:"Selesai", color:"var(--ok)", url:"https://portmaster.games/detail.html?name=dusklight",kontributor:"jckhng, bmdhacks", rilis:2026, gambar:"https://raw.githubusercontent.com/PortsMaster-MV/PortMaster-MV-New/main/ports/dusklight/screenshot.png", aiAssisted:true },
@@ -543,6 +560,10 @@ const modalOverlay = document.getElementById('modalOverlay');
 const modalCard = document.getElementById('modalCard');
 
 function openModal(p){
+  const linksHTML = (p.links || []).map(l =>
+    `<a href="${l.url}" target="_blank" class="modal-link">${l.label} →</a>`
+  ).join('');
+
   modalCard.innerHTML = `
     <button class="modal-close" onclick="closeModal()">✕</button>
     ${p.gambar ? `<img src="${p.gambar}" alt="${p.name}">` : ''}
@@ -555,7 +576,7 @@ function openModal(p){
         <span>Rilis: ${p.rilis}</span>
         <span>Status: ${p.status} (${p.pct}%)</span>
       </div>
-      <a href="${p.url}" target="_blank" class="modal-link">Lihat detail →</a>
+      <div class="modal-links">${linksHTML}</div>
     </div>
   `;
   modalOverlay.classList.add('open');
