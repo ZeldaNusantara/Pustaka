@@ -135,6 +135,13 @@ body{
   color:var(--ok);
   text-decoration:underline;
 }
+
+.variant-list{ display:flex; flex-direction:column; gap:10px; margin-top:4px; }
+.variant-row{ background:var(--bg); border:1px solid var(--line); border-radius:10px; padding:10px 12px; }
+.variant-top{ display:flex; justify-content:space-between; align-items:baseline; }
+.variant-platform{ font-weight:600; font-size:13px; }
+.variant-year{ font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--muted); }
+.variant-kontributor{ font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--muted); margin:3px 0 6px; }
   .badge{
   font-family:'JetBrains Mono',monospace;
   font-size:9.5px;
@@ -462,34 +469,41 @@ footer a:hover{
 <script>
 const games = [
   { name:"The Legend of Zelda",     category:"NES",     type:"Terjemahan",        pct:100, status:"Selesai",   color:"var(--ok)", url:"https://www.romhacking.net/translations/6228/", kontributor:"Hamikon", rilis:2021, gambar:"https://www.romhacking.net/translations/nes/images/titles/6228titlescreen.png"},
+
+{
+  name:"The Legend of Zelda",
+  category:"NES",
+  type:"Terjemahan",
+  pct:100, status:"Selesai", color:"var(--ok)",
+  url:"https://www.romhacking.net/translations/6228/",
+  kontributor:"Hamikon", rilis:2021,
+  gambar:"https://www.romhacking.net/translations/nes/images/titles/6228titlescreen.png",
+  aiAssisted:false
+},
   { name:"The Legend of Zelda",     category:"NES",     type:"Terjemahan",        pct:100, status:"Selesai",   color:"var(--ok)", url:"https://www.romhacking.net/translations/5919/", kontributor:"	C4_KadalMen", rilis:2021, gambar:"https://www.romhacking.net/translations/nes/images/titles/5919titlescreen.png"},
    { name:"Zelda II - The Adventure of Link",     category:"NES",     type:"Terjemahan",        pct:100, status:"Selesai",   color:"var(--ok)", url:"https://www.romhacking.net/translations/6229/", kontributor:"Hamikon", rilis:2020, gambar:"https://www.romhacking.net/translations/nes/images/titles/6229titlescreen.png"},
   { name:"Zelda II - The Adventure of Link",     category:"NES",     type:"Terjemahan",        pct:100, status:"Selesai",   color:"var(--ok)", url:"https://www.romhacking.net/translations/5924/", kontributor:"	C4_KadalMen", rilis:2021, gambar:"https://www.romhacking.net/translations/nes/images/titles/6229titlescreen.png"},
    { name:"The Legend of Zelda - Minish Cap",     category:"GBA",     type:"Terjemahan",        pct:100, status:"Selesai",   color:"var(--ok)", url:"hhttps://www.romhacking.net/translations/5855/", kontributor:"AmriFaesal", rilis:2021, gambar:"https://images.weserv.nl/?url=www.romhacking.net/games/gba/images/titles/1064titlescreen.png"},
     { name:"The Legend of Zelda - Twilight Princess",     category:"GameCube",     type:"Terjemahan",        pct:100, status:"Selesai",   color:"var(--ok)", url:"https://gamebanana.com/mods/683963", kontributor:"Sukalibur", rilis:2026, gambar:"https://images.gamebanana.com/img/ss/mods/6a2529e2282dc.jpg", aiAssisted:true },
    { name:"The Legend of Zelda - Phantom Hourglass",     category:"NDS",     type:"Terjemahan",        pct:90, status:"WIP",   color:"var(--ok)", url:"https://pixeldrain.com/u/7pZSutts", kontributor:"SuchMioko", rilis:2026, gambar:"https://zeldanusantara.github.io/Pustaka/source/zel1.jpg", aiAssisted:true },
-  {
-  name:"The Legend of Zelda - Twilight Princess",
-  category:"GameCube",
-  type:"Terjemahan",
-  pct:100,
-  status:"Selesai",
-  color:"var(--ok)",
-  kontributor:"Sukalibur",
-  rilis:2026,
-  gambar:"https://images.gamebanana.com/img/ss/mods/6a2529e2282dc.jpg",
-  aiAssisted:true,
-  links:[
-    { label:"Unduh mod", url:"https://gamebanana.com/mods/683963" },
-    { label:"Video demo", url:"https://youtube.com/watch?v=xxxx" },
-    { label:"Diskusi/Discord", url:"https://discord.gg/xxxx" }
-  ]
-},
-  
   { name:"Lorem Ipsum",            category:"Switch", type:"Decomp",  pct:34, status:"Playing",   color:"var(--ok)" },
   { name:"Lorem Ipsum",          category:"PS5",    type:"Recomp", pct:12, status:"Backlog",   color:"var(--stall)" },
   { name:"Dusklight (Portmaster)",             category:"Linux-Based Handheld",     type:"Ports", pct:100, status:"Selesai", color:"var(--ok)", url:"https://portmaster.games/detail.html?name=dusklight",kontributor:"jckhng, bmdhacks", rilis:2026, gambar:"https://raw.githubusercontent.com/PortsMaster-MV/PortMaster-MV-New/main/ports/dusklight/screenshot.png", aiAssisted:true },
   { name:"Zelda II - The Adventure of Link 3D", category:"UnityWeb", type:"Fanmade",    pct:100, status:"Selesai",   color:"var(--ok)", url:"https://3dnes.blogspot.com",kontributor:"MIKEJ", rilis:2010, gambar:"https://zeldanusantara.github.io/Pustaka/source/Screenshot%20(1133).png", aiAssisted:false },
+{
+  name:"The Legend of Zelda - Return of The Hylian",
+  category:"Multi-platform",
+  type:"Fanmade",
+  pct:100, status:"Selesai", color:"var(--ok)",
+  gambar:"https://www.zeldaroth.fr/images/roth/s14.png",
+  variants:[
+    { platform:"PC (Original)",        kontributor:"Vincent Jouillat", rilis:2006, url:"https://www.zeldaroth.fr/us/zroth.php" },
+    { platform:"Dingux",                kontributor:"Shin-NiL",    rilis:2010, url:"https://dl.openhandhelds.org/cgi-bin/dingoo.cgi?0,0,0,0,26,389" },
+    { platform:"3DS",                   kontributor:"nop90",       rilis:2016, url:"https://github.com/nop90/ZeldaROTH" },
+    { platform:"Portmaster",            kontributor:"Tekkenfede",  rilis:2024, url:"https://portmaster.games/detail.html?name=zelda_roth" }
+  ],
+  aiAssisted:false 
+},
    { name:"The Legend of Zelda - The Return of Hylian", category:"PC", type:"Fanmade",    pct:100, status:"Selesai",   color:"var(--ok)", url:"https://www.zeldaroth.fr/us/zroth.php",kontributor:"Vincent Jouillat", rilis:2006, gambar:"https://www.zeldaroth.fr/images/roth/s14.png", aiAssisted:false },
   { name:"The Legend of Zelda - The Return of Hylian (Dingoo Port)", category:"Dingux", type:"Fanmade",    pct:100, status:"Selesai",   color:"var(--ok)", url:"https://dl.openhandhelds.org/cgi-bin/dingoo.cgi?0,0,0,0,26,389",kontributor:"Shin-NiL, Vincent Jouillat", rilis:2010, gambar:"https://dl.openhandhelds.org/dingoo/screenshots/s14.png", aiAssisted:false },
   { name:"The Legend of Zelda - The Return of Hylian (3DS Port)", category:"3DS", type:"Fanmade",    pct:100, status:"Selesai",   color:"var(--ok)", url:"https://github.com/nop90/ZeldaROTH",kontributor:"nop90, Vincent Jouillat", rilis:2016, gambar:"https://gbatemp.net/attachments/titre-png.48188/", aiAssisted:false },
@@ -560,15 +574,32 @@ const modalOverlay = document.getElementById('modalOverlay');
 const modalCard = document.getElementById('modalCard');
 
 function openModal(p){
-  const linksHTML = (p.links || []).map(l =>
-    `<a href="${l.url}" target="_blank" class="modal-link">${l.label} →</a>`
-  ).join('');
+  let bodyExtra;
 
-  modalCard.innerHTML = `
-    <button class="modal-close" onclick="closeModal()">✕</button>
-    ${p.gambar ? `<img src="${p.gambar}" alt="${p.name}">` : ''}
-    <div class="modal-body">
-      <h3>${p.name}${p.aiAssisted ? aiBadgeHTML : ''}</h3>
+  if (p.variants && p.variants.length){
+    // multi-variant type
+    bodyExtra = `
+      <div class="modal-meta">
+        <span>Kategori: ${p.category}</span>
+        <span>Tipe: ${p.type}</span>
+        <span>Status: ${p.status} (${p.pct}%)</span>
+      </div>
+      <div class="variant-list">
+        ${p.variants.map(v => `
+          <div class="variant-row">
+            <div class="variant-top">
+              <span class="variant-platform">${v.platform}</span>
+              <span class="variant-year">${v.rilis}</span>
+            </div>
+            <div class="variant-kontributor">${v.kontributor}</div>
+            ${v.url ? `<a href="${v.url}" target="_blank" class="modal-link">Lihat detail →</a>` : ''}
+          </div>
+        `).join('')}
+      </div>
+    `;
+  } else if (p.links && p.links.length){
+    // multi-link type (from before)
+    bodyExtra = `
       <div class="modal-meta">
         <span>Kategori: ${p.category}</span>
         <span>Tipe: ${p.type}</span>
@@ -576,7 +607,28 @@ function openModal(p){
         <span>Rilis: ${p.rilis}</span>
         <span>Status: ${p.status} (${p.pct}%)</span>
       </div>
-      <div class="modal-links">${linksHTML}</div>
+      <div class="modal-links">${p.links.map(l => `<a href="${l.url}" target="_blank" class="modal-link">${l.label} →</a>`).join('')}</div>
+    `;
+  } else {
+    // single-link type (original)
+    bodyExtra = `
+      <div class="modal-meta">
+        <span>Kategori: ${p.category}</span>
+        <span>Tipe: ${p.type}</span>
+        <span>Kontributor: ${p.kontributor}</span>
+        <span>Rilis: ${p.rilis}</span>
+        <span>Status: ${p.status} (${p.pct}%)</span>
+      </div>
+      ${p.url ? `<a href="${p.url}" target="_blank" class="modal-link">Lihat detail →</a>` : ''}
+    `;
+  }
+
+  modalCard.innerHTML = `
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    ${p.gambar ? `<img src="${p.gambar}" alt="${p.name}">` : ''}
+    <div class="modal-body">
+      <h3>${p.name}${p.aiAssisted ? aiBadgeHTML : ''}</h3>
+      ${bodyExtra}
     </div>
   `;
   modalOverlay.classList.add('open');
