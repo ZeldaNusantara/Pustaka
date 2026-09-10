@@ -563,13 +563,48 @@ const games = [
 
   { name:"Lorem Ipsum",            category:"Switch", type:"Decomp",  pct:34, status:"Playing",   color:"var(--ok)" },
   { name:"Lorem Ipsum",          category:"PS5",    type:"Recomp", pct:12, status:"Backlog",   color:"var(--stall)" },
-  { name:"Dusklight (Portmaster)",             category:"Linux-Based Handheld",     type:"Ports", pct:100, status:"Selesai", color:"var(--ok)", url:"https://portmaster.games/detail.html?name=dusklight",kontributor:"jckhng, bmdhacks", rilis:2026, gambar:"https://raw.githubusercontent.com/PortsMaster-MV/PortMaster-MV-New/main/ports/dusklight/screenshot.png", aiAssisted:true },
+  { name:"Dusklight (Portmaster)",             
+   category:"Linux-Based Handheld",     
+   type:"Ports", 
+   pct:100, status:"Selesai", color:"var(--ok)", 
+   url:"https://portmaster.games/detail.html?name=dusklight",
+   kontributor:"jckhng, bmdhacks", rilis:2026,
+   gambar:"https://raw.githubusercontent.com/PortsMaster-MV/PortMaster-MV-New/main/ports/dusklight/screenshot.png", 
+   aiAssisted:false },
+  
+  { 
+    name:"Dusklight",             
+   category:"Multi-Platform",     
+   type:"Ports", 
+   pct:100, status:"Selesai", color:"var(--ok)", 
+   kontributor:"Twilit Realm", rilis:2026,
+   gambar:"https://raw.githubusercontent.com/PortsMaster-MV/PortMaster-MV-New/main/ports/dusklight/screenshot.png", 
+   variants:[
+    { platform:"Windows",        kontributor:"Twilit Realm", rilis:2006, url:"https://twilitrealm.dev/install/#windows" },
+    { platform:"Linux",                kontributor:"Twilit Realm",    rilis:2010, url:"https://twilitrealm.dev/install/#linux" },
+    { platform:"MacOS",                   kontributor:"Twilit Realm",  rilis:2011, url:"https://twilitrealm.dev/install/#macos" },
+    { platform:"Android",                   kontributor:"Twilit Realm",       rilis:2016, url:"https://twilitrealm.dev/install/#android" },
+      { platform:"iOS",                   kontributor:"Twilit Realm",       rilis:2016, url:"https://twilitrealm.dev/install/ios/" },
+    { platform:"Portmaster",            kontributor:"jckhng, bmdhacks",  rilis:2026, url:"https://portmaster.games/detail.html?name=dusklight" }
+  ],
+   aiAssisted:false 
+  },
+    { 
+    name:"Project Picori",             
+   category:"Linux-Based Handheld",     
+   type:"Ports", 
+   pct:100, status:"Selesai", color:"var(--ok)", 
+   url:"https://github.com/999sian/tmc",
+   kontributor:"jckhng, bmdhacks", rilis:2026,
+   gambar:"https://raw.githubusercontent.com/PortsMaster-MV/PortMaster-MV-New/main/ports/dusklight/screenshot.png", 
+   aiAssisted:false 
+  },
   { name:"Zelda II - The Adventure of Link 3D", category:"UnityWeb", type:"Fanmade",    pct:100, status:"Selesai",   color:"var(--ok)", url:"https://3dnes.blogspot.com",kontributor:"MIKEJ", rilis:2010, gambar:"https://zeldanusantara.github.io/Pustaka/source/Screenshot%20(1133).png", aiAssisted:false },
 {
   name:"The Legend of Zelda - Return of The Hylian",
   category:"Multi-platform",
   type:"Fanmade",
-  pct:100, status:"Selesai", color:"var(--ok)",
+  pct:100, status:"Testing", color:"var(--ok)",
   kontributor:"Vincent Jouillat", rilis:2006,
   gambar:"https://www.zeldaroth.fr/images/roth/s14.png",
   variants:[
