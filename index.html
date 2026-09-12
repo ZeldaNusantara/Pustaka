@@ -395,17 +395,26 @@ footer a:hover{
     border-radius:12px;
   }
 
-  header{
-    flex-wrap:wrap;
+   header{
+    flex-wrap:nowrap;   /* was wrap — keep everything on one line */
     gap:12px;
   }
 
+  .header-left{
+    flex:1 1 auto;
+    min-width:0;         /* allows the title to shrink instead of overflowing */
+  }
+
   header h1{
-    font-size:22px;
+    font-size:16px;      /* smaller so it fits next to the logo */
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
   }
 
   .header-logo{
     height:32px;
+    flex-shrink:0;       /* logo keeps its size and stays on the right */
   }
 
   .side-menu{
