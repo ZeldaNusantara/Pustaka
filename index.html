@@ -478,7 +478,7 @@ footer a:hover{
    <footer>
   <div>© <span id="year"></span> <a href="https://zeldanusantara.carrd.co">Zelda Nusantara</a></div>
    <div>Background by <a href="https://x.com/Ayangku_2D">Ale</a> & <a href="https://x.com/Lantern_elf">Lantern Elf</a></div>
-      <div>Updated today</div>
+     <div id="lastUpdated">Updated —</div>
   </footer>
 </div>
 <div class="modal-overlay" id="modalOverlay">
@@ -814,7 +814,24 @@ function closeMenu(){
   overlay.classList.remove('open');
 }
 overlay.addEventListener('click', closeMenu);
+// Fetch the real last-commit date from GitHub for this repo
+(async function setLastUpdated(){
+  const el = document.getElementById('lastUpdated');
+  const fallbackDate = "12 September 2026"; // update this manually if the API call fails
 
+  try {
+    const res = await fetch('https://api.github.com/repos/zeldanusantara/Pustaka/commits?per_page=1');
+    if (!res.ok) throw new Error('API error');
+    const data = await res.json();
+    const commitDate = new Date(data[0].commit.committer.date);
+    const formatted = commitDate.toLocaleDateString('id-ID', {
+      day: 'numeric', month: 'long', year: 'numeric'
+    });
+    el.textContent = `Updated ${formatted}`;
+  } catch (e) {
+    el.textContent = `Updated ${fallbackDate}`;
+  }
+})();
 </script>
 </body>
 </html>
