@@ -285,11 +285,6 @@ footer a:hover{
     padding:2px 8px;
     border-radius:10px;
   }
-  .cat-avg{
-    font-family:'JetBrains Mono',monospace;
-    font-size:11px;
-    color:var(--muted);
-  }
   .cat-rows{
     overflow:hidden;
     max-height:2000px;
@@ -799,7 +794,6 @@ const games = [
   { name:"Lorem Ipsum", category:"Switch", type:"Lainnya", pct:20, status:"Backlog",   color:"var(--stall)" },
 ];
 
-const SEGMENTS = 20;
 const list = document.getElementById('list');
 document.getElementById('year').textContent = new Date().getFullYear();
 const chevronSVG = `<svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>`;
@@ -832,8 +826,6 @@ const categories = [...new Set(games.map(g => g.type))];
 
 categories.forEach(cat => {
   const items = games.filter(g => g.type === cat);
-  const avg = Math.round(items.reduce((s, p) => s + p.pct, 0) / items.length);
-
   const section = document.createElement('div');
   section.className = 'category collapsed';
 
