@@ -131,7 +131,7 @@ flex-shrink:0;}
 .variant-list{ display:flex; flex-direction:column; gap:10px; margin-top:4px; }
 .variant-row{ background:var(--bg); border:1px solid var(--line); border-radius:10px; padding:10px 12px; }
 .variant-top{ display:flex; justify-content:space-between; align-items:baseline; }
-.variant-platform{ font-weight:600; font-size:13px; }
+.variant-platform{ font-weight:600; font-size:13px; display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
 .variant-year{ font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--muted); }
 .variant-kontributor{ font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--muted); margin:3px 0 6px; }
   .badge{
@@ -150,6 +150,14 @@ flex-shrink:0;}
   background:rgba(183,146,245,0.14);
   border:1px solid rgba(183,146,245,0.4);
 }
+
+  .badge-retro{
+  color:var(--warn);
+  background:rgba(245,184,96,0.14);
+  border:1px solid rgba(245,184,96,0.4);
+}
+.badge-group{display:inline-flex;gap:6px;flex-wrap:wrap;align-items:center;}
+.variant-platform{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
   .path{
     font-family:'JetBrains Mono',monospace;
     font-size:11.5px;
@@ -708,7 +716,33 @@ const games = [
   ],   
    aiAssisted:false 
   },
+    { 
+    name:"A Link to the Past (Dual Screen)",             
+   category:"Multi-Platform",     
+   type:"Ports", 
+   pct:100, status:"Selesai", color:"var(--ok)", 
+   kontributor:"various", rilis:2026,
+   gambar:"https://raw.githubusercontent.com/999sian/tmc/refs/heads/master/docs/picori-logo.png", 
+    variants:[
+    { platform:"Android (Retro Handheld)",        kontributor:"Sam Yost", rilis:2026, url:"https://github.com/samyost1/zelda3-android" },
+     { platform:"3DS",                   kontributor:"EstebanPdN",       rilis:2026, url:"https://github.com/EstebanPdN/zelda-alttp-3ds" }
+  ],   
+   aiAssisted:true 
+  },
 
+  { 
+    name:"Minish Cap (Dual Screen)",             
+   category:"Multi-Platform",     
+   type:"Ports", 
+   pct:100, status:"Selesai", color:"var(--ok)", 
+   kontributor:"various", rilis:2026,
+   gambar:"https://raw.githubusercontent.com/999sian/tmc/refs/heads/master/docs/picori-logo.png", 
+    variants:[
+    { platform:"Android (Retro Handheld)",        kontributor:"Sam Yost", rilis:2026, url:"https://github.com/samyost1/tmc-android" },
+     { platform:"3DS",                   kontributor:"EstebanPdN",       rilis:2026, url:"https://github.com/EstebanPdN/zelda-tmc-3ds" }
+  ],   
+   aiAssisted:true 
+  },
   /**Fanmade**/
 
   { name:"The Legend of Zelda (Dreams Remake)", 
@@ -798,6 +832,19 @@ const list = document.getElementById('list');
 document.getElementById('year').textContent = new Date().getFullYear();
 const chevronSVG = `<svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>`;
 const aiBadgeHTML = `<span class="badge badge-ai">AI-Assisted</span>`;
+const retroBadgeHTML = `<span class="badge badge-retro">Retro Handheld</span>`;
+
+// Badges for a single variant
+function variantBadges(v){
+  return (v.retro ? retroBadgeHTML : '') + (v.aiAssisted ? aiBadgeHTML : '');
+}
+// Badges for a whole game (own flag OR any variant has the flag)
+function gameBadges(p){
+  const vs = p.variants || [];
+  const ai = p.aiAssisted || vs.some(v => v.aiAssisted);
+  const retro = p.retro || vs.some(v => v.retro);
+  return (retro ? retroBadgeHTML : '') + (ai ? aiBadgeHTML : '');
+}
 function makeRow(p){
   const r = 24;
   const c = 2 * Math.PI * r;
@@ -814,7 +861,7 @@ function makeRow(p){
       </svg>
       <div class="pct">${p.pct}%</div>
     </div>
-<div class="name"><span class="name-link">${p.name}</span>${p.aiAssisted ? aiBadgeHTML : ''}</div>
+<div class="name"><span class="name-link">${p.name}</span>${gameBadges(p)}</div>
     <div class="status">${p.status}</div>
   <div class="path">${p.category} · ${p.kontributor} · ${p.rilis}</div>
   `;
@@ -875,7 +922,7 @@ function openModal(p){
         ${p.variants.map(v => `
           <div class="variant-row">
             <div class="variant-top">
-              <span class="variant-platform">${v.platform}</span>
+              <span class="variant-platform">${v.platform}${variantBadges(v)}</span>
               <span class="variant-year">${v.rilis}</span>
             </div>
             <div class="variant-kontributor">${v.kontributor}</div>
@@ -912,7 +959,7 @@ function openModal(p){
     <button class="modal-close" onclick="closeModal()">✕</button>
     ${p.gambar ? `<img src="${p.gambar}" alt="${p.name}">` : ''}
     <div class="modal-body">
-      <h3>${p.name}${p.aiAssisted ? aiBadgeHTML : ''}</h3>
+     <h3>${p.name}${gameBadges(p)}</h3>
       ${bodyExtra}
     </div>
   `;
